@@ -1,12 +1,9 @@
 import React from 'react';
 
-class Choose extends React.Component {
-    render() {
-        return (
-            <button  disabled={this.props.value.active}  onClick={this.props.handleAclick} >
-                {this.props.value.text}
-            </button>
-        )
-    }
-}
+const Choose = (props) => (
+		<button  disabled={props.value.active}  onClick={props.handleAclick} >
+            {props.value.text}
+        </button>
+	)
+
 export default Choose;

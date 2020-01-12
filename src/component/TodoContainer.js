@@ -1,7 +1,7 @@
 import React from 'react';
 import FilterLink from '../container/FilterLink';
 import VisibleTodoList from '../container/VisibleTodoList';
-import SerachInput from './SerachInput';
+import AddTodo  from './AddTodo';
 
 class TodoContainer extends React.Component {
     constructor(props) {
@@ -33,15 +33,15 @@ class TodoContainer extends React.Component {
         const val = this.myRef.current.value;
         const lt = this.state.lt;
         const id = lt.length;
-        const toggleClick = true;
+        const completed = false;
         this.setState({
-            lt: lt.concat({ val, id, toggleClick }),
+            lt: lt.concat({ val, id, completed }),
         });
         this.myRef.current.value = '';
     }
     handleClick(val) {
         const lt = this.state.lt;
-        lt[val].toggleClick = !lt[val].toggleClick;
+        lt[val].completed = !lt[val].completed;
         this.setState({
             lt
         })
@@ -59,7 +59,7 @@ class TodoContainer extends React.Component {
     render() {
         return (
             <div className='TC'>
-                  <SerachInput handleInput={(e)=>this.handleInput(e)} myRef={this.myRef}/>
+                  <AddTodo handleInput={(e)=>this.handleInput(e)} myRef={this.myRef}/>
                       <ul>
                           <VisibleTodoList list={this.state.lt} index={this.state.index_id} handleClick={this.handleClick}/>
                       </ul>

@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-class SerachInput extends React.Component {
+class AddTodo extends React.Component {
     render() {
         return (
             <form onSubmit={this.props.handleInput}>
@@ -10,4 +11,4 @@ class SerachInput extends React.Component {
     }
 }
 
-export default SerachInput;
+export default AddTodo;
