@@ -59,9 +59,9 @@ class TodoContainer extends React.Component {
     render() {
         return (
             <div className='TC'>
-                  <AddTodo handleInput={(e)=>this.handleInput(e)} myRef={this.myRef}/>
+                  <AddTodo />
                       <ul>
-                          <VisibleTodoList list={this.state.lt} index={this.state.index_id} handleClick={this.handleClick}/>
+                          <VisibleTodoList />
                       </ul>
                       <Footer />
             </div>
