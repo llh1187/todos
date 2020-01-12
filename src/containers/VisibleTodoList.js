@@ -1,5 +1,5 @@
 import React from 'react';
-import List from '../component/List';
+import List from '../components/List';
 import { connect } from 'react-redux'
 
 /*const getVisibleTodos = (todos, filter) => {

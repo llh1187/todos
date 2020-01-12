@@ -1,6 +1,6 @@
 import React from 'react';
-import FilterLink from '../container/FilterLink';
-import VisibleTodoList from '../container/VisibleTodoList';
+import Footer from './Footer';
+import VisibleTodoList from '../containers/VisibleTodoList';
 import AddTodo  from './AddTodo';
 
 class TodoContainer extends React.Component {
@@ -63,7 +63,7 @@ class TodoContainer extends React.Component {
                       <ul>
                           <VisibleTodoList list={this.state.lt} index={this.state.index_id} handleClick={this.handleClick}/>
                       </ul>
-                      <FilterLink handleAclick={this.handleAclick} link={this.state.link}/>
+                      <Footer />
             </div>
         )
     }
