@@ -1,72 +1,18 @@
 import React from 'react';
 import Footer from './Footer';
 import VisibleTodoList from '../containers/VisibleTodoList';
-import AddTodo  from './AddTodo';
+import AddTodoContainer  from '../containers/AddTodoContainer';
 
-class TodoContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.myRef = React.createRef();
-        this.handleInput = this.handleInput.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-        this.handleAclick = this.handleAclick.bind(this);
-        this.state = {
-            lt: [],
-            link: [{
-                text: 'all',
-                active: true,
-                id: 0,
-            }, {
-                text: 'completed',
-                active: false,
-                id: 1,
-            }, {
-                text: 'not completed',
-                active: false,
-                id: 2
-            }],
-            index_id: 0,
-        }
-    }
-    handleInput(e) {
-        e.preventDefault();
-        const val = this.myRef.current.value;
-        const lt = this.state.lt;
-        const id = lt.length;
-        const completed = false;
-        this.setState({
-            lt: lt.concat({ val, id, completed }),
-        });
-        this.myRef.current.value = '';
-    }
-    handleClick(val) {
-        const lt = this.state.lt;
-        lt[val].completed = !lt[val].completed;
-        this.setState({
-            lt
-        })
-    }
-    handleAclick(index) {
-        const link = this.state.link.map((val, ind) => (ind === index) ?
-            { ...val, active: !val.active } :
-            { ...val, active: false }
-        )
-        this.setState({
-            link,
-            index_id: index,
-        })
-    }
-    render() {
-        return (
-            <div className='TC'>
-                  <AddTodo />
-                      <ul>
-                          <VisibleTodoList />
-                      </ul>
-                      <Footer />
-            </div>
-        )
-    }
+const TodoContainer = () => {
+    return (
+        <div className='TC'>
+              <AddTodoContainer />
+              <ul>
+                  <VisibleTodoList />
+              </ul>
+              <Footer />
+        </div>
+    )
 }
 
 export default TodoContainer;
