@@ -1,6 +1,6 @@
 import React from 'react';
-import Choose from './Choose';
-import List from './List';
+import FilterLink from '../container/FilterLink';
+import VisibleTodoList from '../container/VisibleTodoList';
 import SerachInput from './SerachInput';
 
 class TodoContainer extends React.Component {
@@ -61,9 +61,9 @@ class TodoContainer extends React.Component {
             <div className='TC'>
                   <SerachInput handleInput={(e)=>this.handleInput(e)} myRef={this.myRef}/>
                       <ul>
-                          <List list={this.state.lt} index={this.state.index_id} handleClick={this.handleClick}/>
+                          <VisibleTodoList list={this.state.lt} index={this.state.index_id} handleClick={this.handleClick}/>
                       </ul>
-                      <Choose handleAclick={this.handleAclick} link={this.state.link}/>
+                      <FilterLink handleAclick={this.handleAclick} link={this.state.link}/>
             </div>
         )
     }

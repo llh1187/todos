@@ -10,6 +10,7 @@ class Index extends React.Component{
         )
     }
 }
+
 // ========================================
 /*渲染入口*/
 ReactDOM.render(
