@@ -1,3 +1,4 @@
+/*抽取dispatch发送的action中重复的代码到这里，以DRY，这样子在容器组件dispatch的时候可以只写dispatch(addTodo(text))*/
 let nextTodoId = 0
 export const addTodo = text => ({
   type: 'ADD_TODO',

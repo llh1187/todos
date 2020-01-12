@@ -18,5 +18,5 @@ const AddTodoContainer = ({ dispatch }) => {
         </form>
     )
 }
-
+//这里并没有connect某一个映射的函数，就是将Redux store state 映射到展示组件的 props 中
 export default connect()(AddTodoContainer);
