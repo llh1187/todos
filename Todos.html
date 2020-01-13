@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>react todo-list</title>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/redux/4.0.4/redux.js"></script> -->
+    <style rel="stylesheet/less"  type="text/less">
+        html,body,#root {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+            .TC{
+                background: #f2e8e8;
+                width: 500px;
+                height: 500px;
+                margin: 0 auto;
+                position: relative;
+                top: 50%;
+                margin-top: -250px;
+                text-align: center;
+                overflow: hidden;
+
+                .SI{
+                    width: 50%;
+                }
+
+                .ListItem{
+                    width: 50%;
+                    margin: 0 auto;
+                    background: #e8e6e6;
+                    border-bottom: 1px solid grey;
+                }
+                .textD{
+                    text-decoration: line-through;
+                }
+            }
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/less.js/3.10.3/less.min.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class SerachInput extends React.Component{
+            render() {
+                return(
+                        <form onSubmit={this.props.handleInput}>
+                            <input className='SI' placeholder='please input anything you want~' ref={this.props.myRef}/> 
+                        </form>
+                );
+            }
+        }
+
+        class List extends React.Component{
+            constructor(props) {
+                super(props);
+            }
+            componentWillMount() {
+                console.log('Component WILL MOUNT!')
+            }
+            componentDidMount() {
+               console.log('Component DID MOUNT!')
+            }
+            componentWillReceiveProps(newProps) {
+                console.log('Component WILL RECEIVE PROPS!')
+            }
+            shouldComponentUpdate(newProps, newState) {
+                console.log('执行shouldComponentUpdate');
+                return true;
+            }
+            componentWillUpdate(nextProps, nextState) {
+                console.log('Component WILL UPDATE!');
+            }
+            componentDidUpdate(prevProps, prevState) {
+                console.log('Component DID UPDATE!-----------')
+            }
+            componentWillUnmount() {
+                 console.log('Component WILL UNMOUNT!')
+            }
+            render() {
+                console.log('render 我是每次都执行吗？');
+                const index = this.props.index;
+                let list;
+                if(index==0){
+                    list = this.props.list;
+                }
+                else if(index==1){
+                    list = this.props.list.filter((value) => value.toggleClick==false)
+                }
+                else if(index==2){
+                    list = this.props.list.filter((value) => value.toggleClick==true)
+                }
+                return (list[0])?list.map((value,index) =>
+                    <li className='ListItem' key = {index} id = {index} onClick={()=>this.props.handleClick(value.id)} 
+                        style={{textDecoration: value.toggleClick ? 'none' : 'line-through'}}
+                    >
+                        {value.val}
+                    </li>):''
+            }
+        }
+
+        class Choose extends React.Component{
+        	render(){
+        		return(
+                    (this.props.link.length>0)?this.props.link.map((value,index)=>
+                    <button  key = {index} onClick={()=>this.props.handleAclick(index)} disabled={value.active}>
+                        {value.text}
+                    </button>):''
+        		)
+        	}
+    	}
+
+        class TodoContainer extends React.Component{
+            constructor(props){
+                super(props);
+                this.myRef = React.createRef();
+                this.handleInput = this.handleInput.bind(this);
+                this.handleClick = this.handleClick.bind(this);
+        		this.handleAclick = this.handleAclick.bind(this);
+                this.state = {
+                    lt:[],
+                    link:[{
+                    text:'all',
+                    active:true,
+                    id:0,
+                },{
+                	text:'completed',
+                    active:false,
+                    id:1,	
+                },{
+                    text:'not completed',
+                    active:false,   
+                    id:2
+                }],
+                index_id:0,
+                }
+            }
+            handleInput(e){
+                e.preventDefault();
+                const val = this.myRef.current.value;
+                const lt = this.state.lt;
+                const id = lt.length;
+                const toggleClick = true;
+                this.setState({
+                    lt:lt.concat({val,id,toggleClick}),
+                });
+                this.myRef.current.value = '';
+            }
+            handleClick(val){
+                const lt =  this.state.lt;
+                lt[val].toggleClick = !lt[val].toggleClick;
+                this.setState({
+                    lt
+                })
+            }
+            handleAclick(index){
+                const link = this.state.link.map((val,ind)=>(ind===index)
+                    ?{...val,active:!val.active}
+                    :{...val,active:false}
+                )
+                this.setState({
+                    link,
+                    index_id:index,
+                })
+       		}
+            render() {
+                return(
+                    <div className='TC'>
+                        <SerachInput handleInput={(e)=>this.handleInput(e)}
+                        myRef={this.myRef}/>
+                        <ul>
+                            <List list={this.state.lt} index={this.state.index_id} handleClick={this.handleClick}/>
+                        </ul>
+                        <Choose handleAclick={this.handleAclick} link={this.state.link}/>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <TodoContainer />,
+            document.getElementById('root')
+        );    
+    </script>
+</body>
+
+</html>

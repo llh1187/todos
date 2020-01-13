@@ -19,4 +19,5 @@ const AddTodoContainer = ({ dispatch }) => {
     )
 }
 //这里并没有connect某一个映射的函数，就是将Redux store state 映射到展示组件的 props 中
+/*因为这里没有引用到别的组件 是自己本身的组件*/
 export default connect()(AddTodoContainer);
